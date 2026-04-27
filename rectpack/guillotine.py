@@ -93,7 +93,7 @@ class Guillotine(PackingAlgorithm):
             width (int, float): Rectangle width
             height (int, float): Rectangle height
         """
-        raise NotImplementedError
+        pass
 
 
     def _section_fitness(self, section, width, height):
@@ -101,7 +101,7 @@ class Guillotine(PackingAlgorithm):
         BAF, BLSF.... will override this method, this is here only
         to asure a valid value return if the worst happens.
         """
-        raise NotImplementedError
+        pass
 
     def _select_fittest_section(self, w, h):
         """Calls _section_fitness for each of the sections in free section 

@@ -71,7 +71,7 @@ class PackingAlgorithm(object):
             int, float: Rectangle fitness 
             None: Rectangle can't be placed
         """
-        raise NotImplementedError
+        pass
         
     def add_rect(self, width, height, rid=None):
         """
@@ -86,7 +86,7 @@ class PackingAlgorithm(object):
             Rectangle: Rectangle with placemente coordinates
             None: If the rectangle couldn be placed.
         """
-        raise NotImplementedError
+        pass
 
     def rect_list(self):
         """

@@ -19,10 +19,7 @@ def float2dec(ft, decimal_digits):
     Return:
         Decimal: Number converted to decima
     """
-    with decimal.localcontext() as ctx:
-        ctx.rounding = decimal.ROUND_UP
-        places = decimal.Decimal(10)**(-decimal_digits)
-        return decimal.Decimal.from_float(float(ft)).quantize(places)
+    pass
 
 
 # Sorting algos for rectangle lists
@@ -344,41 +341,6 @@ def newPacker(mode=PackingMode.Offline,
     Returns:
         Packer: Initialized packer instance.
     """
-    packer_class = None
-
-    # Online Mode
-    if mode == PackingMode.Online:
-        sort_algo=None
-        if bin_algo == PackingBin.BNF:
-            packer_class = PackerOnlineBNF
-        elif bin_algo == PackingBin.BFF:
-            packer_class = PackerOnlineBFF
-        elif bin_algo == PackingBin.BBF:
-            packer_class = PackerOnlineBBF
-        else:
-            raise AttributeError("Unsupported bin selection heuristic")
-
-    # Offline Mode
-    elif mode == PackingMode.Offline:
-        if bin_algo == PackingBin.BNF:
-            packer_class = PackerBNF
-        elif bin_algo == PackingBin.BFF:
-            packer_class = PackerBFF
-        elif bin_algo == PackingBin.BBF:
-            packer_class = PackerBBF
-        elif bin_algo == PackingBin.Global:
-            packer_class = PackerGlobal
-            sort_algo=None
-        else:
-            raise AttributeError("Unsupported bin selection heuristic")
-
-    else:
-        raise AttributeError("Unknown packing mode.")
-
-    if sort_algo:
-        return packer_class(pack_algo=pack_algo, sort_algo=sort_algo, 
-            rotation=rotation)
-    else:
-        return packer_class(pack_algo=pack_algo, rotation=rotation)
+    pass
 
 

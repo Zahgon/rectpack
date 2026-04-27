@@ -13,10 +13,10 @@ class WasteManager(GuillotineBafMinas):
         pass
 
     def _fits_surface(self, width, height):
-        raise NotImplementedError
+        pass
 
     def validate_packing(self):
-        raise NotImplementedError
+        pass
 
     def reset(self):
         pass
