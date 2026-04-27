@@ -31,13 +31,7 @@ class Guillotine(PackingAlgorithm):
         Arguments:
             section (Rectangle): New free section.
         """
-        section.rid = 0     
-        plen = 0
-
-        while self._merge and self._sections and plen != len(self._sections):
-            plen = len(self._sections)
-            self._sections = [s for s in self._sections if not section.join(s)]
-        self._sections.append(section)
+        pass
 
 
     def _split_horizontal(self, section, width, height):
@@ -61,19 +55,7 @@ class Guillotine(PackingAlgorithm):
         rectangle is created. If both width and height are equal, no sections
         are created.
         """
-        # First remove the section we are splitting so it doesn't 
-        # interfere when later we try to merge the resulting split
-        # rectangles, with the rest of free sections.
-        #self._sections.remove(section)
-
-        # Creates two new empty sections, and returns the new rectangle.
-        if height < section.height:
-            self._add_section(Rectangle(section.x, section.y+height,
-                section.width, section.height-height))
-
-        if width < section.width:
-            self._add_section(Rectangle(section.x+width, section.y,
-                section.width-width, height))
+        pass
 
 
     def _split_vertical(self, section, width, height):
@@ -97,15 +79,7 @@ class Guillotine(PackingAlgorithm):
         rectangle is created. If both width and height are equal, no sections
         are created.
         """
-        # When a section is split, depending on the rectangle size 
-        # two, one, or no new sections will be created. 
-        if height < section.height:
-            self._add_section(Rectangle(section.x, section.y+height,
-                width, section.height-height))
-        
-        if width < section.width:
-            self._add_section(Rectangle(section.x+width, section.y,
-                section.width-width, section.height))
+        pass
         
 
     def _split(self, section, width, height):
@@ -145,22 +119,7 @@ class Guillotine(PackingAlgorithm):
                 section (Rectangle): Section with best fitness
                 was_rotated (bool): The rectangle was rotated 
         """
-        fitn = ((self._section_fitness(s, w, h), s, False) for s in self._sections 
-                if self._section_fitness(s, w, h) is not None)
-        fitr = ((self._section_fitness(s, h, w), s, True) for s in self._sections 
-                if self._section_fitness(s, h, w) is not None)
-
-        if not self.rot:
-            fitr = []
-
-        fit = itertools.chain(fitn, fitr)
-        
-        try:
-            _, sec, rot = min(fit, key=operator.itemgetter(0))
-        except ValueError:
-            return None, None
-
-        return sec, rot
+        pass
 
 
     def add_rect(self, width, height, rid=None):     
@@ -176,24 +135,7 @@ class Guillotine(PackingAlgorithm):
             Rectangle: Rectangle with placemente coordinates
             None: If the rectangle couldn be placed.
         """
-        assert(width > 0 and height >0)
-
-        # Obtain the best section to place the rectangle.
-        section, rotated = self._select_fittest_section(width, height)
-        if not section:
-            return None
-        
-        if rotated:
-            width, height = height, width
-        
-        # Remove section, split and store results
-        self._sections.remove(section)
-        self._split(section, width, height)
-       
-        # Store rectangle in the selected position
-        rect = Rectangle(section.x, section.y, width, height, rid)
-        self.rectangles.append(rect)
-        return rect
+        pass
 
     def fitness(self, width, height):
         """
@@ -201,24 +143,10 @@ class Guillotine(PackingAlgorithm):
         free sections, for the given dimension, both normal and rotated
         (if rotation enabled.)
         """
-        assert(width > 0 and height > 0)
-
-        # Get best fitness section.
-        section, rotated = self._select_fittest_section(width, height)
-        if not section:
-            return None
-        
-        # Return fitness of returned section, with correct dimmensions if the
-        # the rectangle was rotated.
-        if rotated:
-            return self._section_fitness(section, height, width)
-        else:
-            return self._section_fitness(section, width, height)
+        pass
 
     def reset(self):
-        super(Guillotine, self).reset()
-        self._sections = []
-        self._add_section(Rectangle(0, 0, self.width, self.height))
+        pass
 
 
 
@@ -227,9 +155,7 @@ class GuillotineBaf(Guillotine):
     Guillotine algorithm.
     """
     def _section_fitness(self, section, width, height):
-        if width > section.width or height > section.height:
-            return None
-        return section.area()-width*height
+        pass
 
 
 class GuillotineBlsf(Guillotine):
@@ -237,9 +163,7 @@ class GuillotineBlsf(Guillotine):
     Guillotine algorithm.
     """
     def _section_fitness(self, section, width, height):
-        if width > section.width or height > section.height:
-            return None
-        return max(section.width-width, section.height-height)
+        pass
 
 
 class GuillotineBssf(Guillotine):
@@ -247,9 +171,7 @@ class GuillotineBssf(Guillotine):
     Guillotine algorithm.
     """
     def _section_fitness(self, section, width, height):
-        if width > section.width or height > section.height:
-            return None
-        return min(section.width-width, section.height-height)
+        pass
 
 
 class GuillotineSas(Guillotine):
@@ -257,10 +179,7 @@ class GuillotineSas(Guillotine):
     algorithm.
     """
     def _split(self, section, width, height):
-        if section.width < section.height:
-            return self._split_horizontal(section, width, height)
-        else:
-            return self._split_vertical(section, width, height)
+        pass
         
 
 
@@ -269,10 +188,7 @@ class GuillotineLas(Guillotine):
     algorithm.
     """
     def _split(self, section, width, height):
-        if section.width >= section.height:
-            return self._split_horizontal(section, width, height)
-        else:
-            return self._split_vertical(section, width, height)
+        pass
 
 
 
@@ -281,10 +197,7 @@ class GuillotineSlas(Guillotine):
     Guillotine algorithm.
     """
     def _split(self, section, width, height):
-        if section.width-width < section.height-height:
-            return self._split_horizontal(section, width, height)
-        else:
-            return self._split_vertical(section, width, height)
+        pass
         
 
 
@@ -293,10 +206,7 @@ class GuillotineLlas(Guillotine):
     Guillotine algorithm.
     """
     def _split(self, section, width, height):
-        if section.width-width >= section.height-height:
-            return self._split_horizontal(section, width, height)
-        else:
-            return self._split_vertical(section, width, height)
+        pass
 
 
 
@@ -306,10 +216,7 @@ class GuillotineMaxas(Guillotine):
     Tries to make the rectangles more even-sized.
     """
     def _split(self, section, width, height):
-        if width*(section.height-height) <= height*(section.width-width):
-            return self._split_horizontal(section, width, height)
-        else:
-            return self._split_vertical(section, width, height)
+        pass
         
 
 
@@ -318,10 +225,7 @@ class GuillotineMinas(Guillotine):
     algorithm. 
     """
     def _split(self, section, width, height):
-        if width*(section.height-height) >= height*(section.width-width):
-            return self._split_horizontal(section, width, height)
-        else:
-            return self._split_vertical(section, width, height)
+        pass
        
 
 

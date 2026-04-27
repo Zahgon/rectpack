@@ -20,10 +20,10 @@ class Point(object):
         """
         Calculate distance to another point
         """
-        return sqrt((self.x-point.x)**2+(self.y-point.y)**2)
+        pass
 
     def distance_squared(self, point):
-        return (self.x-point.x)**2+(self.y-point.y)**2
+        pass
 
 
 class Segment(object):
@@ -51,27 +51,27 @@ class Segment(object):
     @property
     def length_squared(self):
         """Faster than length and useful for some comparisons"""
-        return self.start.distance_squared(self.end)
+        pass
 
     @property
     def length(self):
-        return self.start.distance(self.end)
+        pass
 
     @property
     def top(self):
-        return max(self.start.y, self.end.y)
+        pass
     
     @property
     def bottom(self):
-        return min(self.start.y, self.end.y)
+        pass
 
     @property
     def right(self):
-        return max(self.start.x, self.end.x)
+        pass
 
     @property
     def left(self):
-        return min(self.start.x, self.end.x)
+        pass
 
 
 class HSegment(Segment):
@@ -91,7 +91,7 @@ class HSegment(Segment):
 
     @property
     def length(self):
-        return self.end.x-self.start.x
+        pass
 
 
 class VSegment(Segment):
@@ -111,7 +111,7 @@ class VSegment(Segment):
 
     @property
     def length(self):
-        return self.end.y-self.start.y
+        pass
     
 
 
@@ -145,44 +145,44 @@ class Rectangle(object):
         """
         Rectangle bottom edge y coordinate
         """
-        return self.y
+        pass
 
     @property
     def top(self):
         """
         Rectangle top edge y coordiante
         """
-        return self.y+self.height
+        pass
 
     @property
     def left(self):
         """
         Rectangle left ednge x coordinate
         """
-        return self.x
+        pass
 
     @property
     def right(self):
         """
         Rectangle right edge x coordinate
         """
-        return self.x+self.width
+        pass
 
     @property
     def corner_top_l(self):
-        return Point(self.left, self.top)
+        pass
 
     @property
     def corner_top_r(self):
-        return Point(self.right, self.top)
+        pass
 
     @property
     def corner_bot_r(self):
-        return Point(self.right, self.bottom)
+        pass
 
     @property
     def corner_bot_l(self):
-        return Point(self.left, self.bottom)
+        pass
 
     def __lt__(self, other):
         """
@@ -221,7 +221,7 @@ class Rectangle(object):
         """
         Rectangle area
         """
-        return self.width * self.height
+        pass
 
     def move(self, x, y):
         """
@@ -231,8 +231,7 @@ class Rectangle(object):
             x (int, float): X coordinate
             y (int, float): Y coordinate
         """
-        self.x = x
-        self.y = y
+        pass
 
     def contains(self, rect):
         """
@@ -244,10 +243,7 @@ class Rectangle(object):
         Returns:
             bool: True if it is container, False otherwise
         """
-        return (rect.y >= self.y and \
-                rect.x >= self.x and \
-                rect.y+rect.height <= self.y+self.height and \
-                rect.x+rect.width  <= self.x+self.width)
+        pass
 
     def intersects(self, rect, edges=False):
         """
@@ -262,16 +258,7 @@ class Rectangle(object):
         Returns:
             bool: True if the rectangles intersect, False otherwise
         """
-        if edges:
-            if (self.bottom > rect.top or self.top < rect.bottom or\
-                self.left > rect.right or self.right < rect.left):
-                return False
-        else:
-            if (self.bottom >= rect.top or self.top <= rect.bottom or
-                self.left >= rect.right or self.right <= rect.left):
-                return False
-
-        return True
+        pass
 
     def intersection(self, rect, edges=False):
         """
@@ -290,15 +277,7 @@ class Rectangle(object):
             Rectangle: Intersection.
             None: There was no intersection.
         """
-        if not self.intersects(rect, edges=edges):
-            return None
-        
-        bottom = max(self.bottom, rect.bottom)
-        left = max(self.left, rect.left)
-        top = min(self.top, rect.top)
-        right = min(self.right, rect.right)
-
-        return Rectangle(left, bottom, right-left, top-bottom)
+        pass
 
     def join(self, other):
         """
@@ -311,34 +290,5 @@ class Rectangle(object):
         Returns:
             bool: True when successfully joined, False otherwise
         """
-        if self.contains(other):
-            return True
-
-        if other.contains(self):
-            self.x = other.x
-            self.y = other.y
-            self.width = other.width
-            self.height = other.height
-            return True
-
-        if not self.intersects(other, edges=True):
-            return False
-
-        # Other rectangle is Up/Down from this
-        if  self.left == other.left and self.width == other.width:
-            y_min = min(self.bottom, other.bottom)
-            y_max = max(self.top, other.top)  
-            self.y = y_min
-            self.height = y_max-y_min
-            return True
-
-        # Other rectangle is Right/Left from this
-        if  self.bottom == other.bottom and self.height == other.height:
-            x_min = min(self.left, other.left)
-            x_max = max(self.right, other.right)
-            self.x = x_min
-            self.width = x_max-x_min
-            return True
-
-        return False
+        pass
 

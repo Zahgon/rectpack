@@ -10,7 +10,7 @@ class WasteManager(GuillotineBafMinas):
    
     def add_waste(self, x, y, width, height):
         """Add new waste section"""
-        self._add_section(Rectangle(x, y, width, height))
+        pass
 
     def _fits_surface(self, width, height):
         raise NotImplementedError
@@ -19,5 +19,4 @@ class WasteManager(GuillotineBafMinas):
         raise NotImplementedError
 
     def reset(self):
-        super(WasteManager, self).reset()
-        self._sections = []
+        pass

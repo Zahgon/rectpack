@@ -39,14 +39,7 @@ class PackingAlgorithm(object):
         Returns:
             boolean: True if it could be placed, False otherwise
         """
-        assert(width > 0 and height > 0)
-        if self.rot and (width > self.width or height > self.height):
-            width, height = height, width
-
-        if width > self.width or height > self.height:
-            return False
-        else:
-            return True
+        pass
     
     def __getitem__(self, key):
         """
@@ -61,7 +54,7 @@ class PackingAlgorithm(object):
         Returns:
             int, float: Area
         """
-        return sum(r.area() for r in self)
+        pass
 
     def fitness(self, width, height, rot = False):
         """
@@ -102,39 +95,21 @@ class PackingAlgorithm(object):
         Returns:
             List: Format [(x, y, width, height, rid), ...]
         """
-        rectangle_list = []
-        for r in self:
-            rectangle_list.append((r.x, r.y, r.width, r.height, r.rid))
-
-        return rectangle_list
+        pass
 
     def validate_packing(self):
         """
         Check for collisions between rectangles, also check all are placed
         inside surface.
         """
-        surface = Rectangle(0, 0, self.width, self.height)
-
-        for r in self:
-            if not surface.contains(r):
-                raise Exception("Rectangle placed outside surface")
-
-        
-        rectangles = [r for r in self]
-        if len(rectangles) <= 1:
-            return
-
-        for r1 in range(0, len(rectangles)-2):
-            for r2 in range(r1+1, len(rectangles)-1):
-                if rectangles[r1].intersects(rectangles[r2]):
-                    raise Exception("Rectangle collision detected")
+        pass
 
     def is_empty(self):
         # Returns true if there is no rectangles placed.
-        return not bool(len(self))
+        pass
 
     def reset(self):
-        self.rectangles = []    # List of placed Rectangles.
+        pass
 
 
 
